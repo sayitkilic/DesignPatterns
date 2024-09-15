@@ -16,12 +16,14 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 //DecoratorDesignPattern
+// Eklenen decoratorlar için En son eklenen ilk icra edilir
 //1. YolScrutor 
 //builder.Services.AddScoped<IDecoratorDesignPatternService, DecoratorDesignPatternService>()
 //    .Decorate<IDecoratorDesignPatternService, CacheDecorator>()
 //    .Decorate<IDecoratorDesignPatternService, LogDecorator>();
 //2.yol
-// Son Eklenen ilk icra edilir. Scoped olduðu için en son eklenen ilk icra edilir
+// Son Eklenen ilk icra edilir. Scoped olduðu için her requestte deðiþtirilebilir if koþulu eklenebilir.
+
 builder.Services.AddScoped<IDecoratorDesignPatternService>(sp =>
 {
     var decoratorDesignPatternService = new DecoratorDesignPatternService();
