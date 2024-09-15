@@ -1,3 +1,4 @@
+using DesignPatterns.AdapterDesignPattern;
 using DesignPatterns.CompositeDesignPattern;
 using DesignPatterns.DecoratorDesignPattern;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +14,17 @@ namespace DesignPatterns.Controllers
     {
         private readonly CompositeDesignPatternHandler _compositeDesignPatternHandler;
         private readonly IDecoratorDesignPatternService _decoratorDesignPatternService;
+        private readonly IAdapterDesignExistService _adapterDesignExistService;
         /// <summary>
-        /// Constructor
+        /// Design Pattern Controller Constructor
         /// </summary>
         /// <param name="decoratorDesignPatternService"></param>
-        public DesignPatternsController(IDecoratorDesignPatternService decoratorDesignPatternService)
+        /// <param name="adapterDesignExistService"></param>
+        public DesignPatternsController(IDecoratorDesignPatternService decoratorDesignPatternService, IAdapterDesignExistService adapterDesignExistService)
         {
             _compositeDesignPatternHandler = new CompositeDesignPatternHandler();
             _decoratorDesignPatternService = decoratorDesignPatternService;
+            _adapterDesignExistService = adapterDesignExistService;
         }
 
         /// <summary>
@@ -37,9 +41,20 @@ namespace DesignPatterns.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("decorator/products")]
-        public List<DecoratorDesignPatternProductDto> Get()
+        public List<DecoratorDesignPatternProductDto> DecoratorGetProducts()
         {
             return _decoratorDesignPatternService.GetProducts();
+        }
+
+
+        /// <summary>
+        /// Farklý interfaceleri uyumlu hale getirir.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("adapter/multiply")]
+        public int AdapterDesignMultiply(AdapterDesignMultiplyRequest request)
+        {
+            return _adapterDesignExistService.MultiplyBySum(request.Number, request.Multiplier);
         }
     }
 }

@@ -1,3 +1,4 @@
+using DesignPatterns.AdapterDesignPattern;
 using DesignPatterns.DecoratorDesignPattern;
 using System.Reflection;
 
@@ -36,6 +37,10 @@ builder.Services.AddScoped<IDecoratorDesignPatternService>(sp =>
 
     return cacheDecorator;
 });
+
+//Adapter Design Pattern
+builder.Services.AddScoped<IAdapterDesignNewService, AdapterDesignNewService>();
+builder.Services.AddScoped<IAdapterDesignExistService, AdapterDesignNewServiceAdapter>();
 
 
 var app = builder.Build();
